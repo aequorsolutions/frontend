@@ -1,6 +1,6 @@
 'use client'
-import React, { MouseEventHandler } from 'react'
-import { useSession, signIn, signOut } from 'next-auth/react'
+
+import { signIn } from 'next-auth/react'
 
 const SignIn = () => {
   return (
@@ -15,7 +15,7 @@ const SignIn = () => {
           <button
             type="button"
             className="text-lg text-white font-semibold bg-red-500 py-3 px-6 rounded-md focus:outline-none focus:ring-2 hover:bg-red-600"
-            onClick={() => signIn()}
+            onClick={() => signIn('google')}
           >
             Entre com o Google
           </button>

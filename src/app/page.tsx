@@ -1,14 +1,13 @@
 import SignIn from '@/components/SignIn'
 import SignOut from '@/components/SignOut'
-import { authOptions } from '@/utils/authoptions'
-import { getServerSession } from 'next-auth/next'
 import Link from 'next/link'
 import logo from '@/app/assets/logo-in-orbit.svg'
 import rocketLaunchIllustration from '@/app/assets/lets-start-illustration.svg'
 import Image from 'next/image'
+import { auth } from '@/auth'
 
 export default async function Home() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
 
   // console.log(session)
   return (

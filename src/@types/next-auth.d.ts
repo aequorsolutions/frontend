@@ -11,6 +11,7 @@ declare module 'next-auth' {
   }
 
   interface Session {
+    error?: 'RefreshTokenError'
     accessToken: string //& DefaultSession["user"]
   }
 }

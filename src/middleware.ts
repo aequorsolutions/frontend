@@ -1,13 +1,14 @@
-import { withAuth } from 'next-auth/middleware'
-import type { NextRequestWithAuth } from 'next-auth/middleware'
-// This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequestWithAuth) {
-  const response = withAuth(request)
+import authConfig from '@/utils/authoptions'
+import NextAuth from 'next-auth'
 
-  return response
-}
+// Use only one of the two middleware options below
+// 1. Use middleware directly
+export const { auth: middleware } = NextAuth(authConfig)
 
-// See "Matching Paths" below to learn more
+// Optionally, don't invoke Middleware on some paths
 export const config = {
-  matcher: ['/dashboard/:path*'],
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/dashboard/:path*',
+  ],
 }

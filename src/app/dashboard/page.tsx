@@ -1,13 +1,12 @@
 import SignOut from '@/components/SignOut'
-import { authOptions } from '@/utils/authoptions'
 import { getMonthGoals, getWeekGoals } from '@/actions/dataFetch'
-import { getServerSession } from 'next-auth/next'
 import { redirect } from 'next/navigation'
 import { CreateCategoryButton } from '@/components/CreateCategoryButton'
 import { ListOfCategories } from '@/components/ListOfCategories'
+import { auth } from '@/auth'
 
 export default async function Home() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   if (!session) redirect('/')
   //   console.log("session: ")
   // console.log(session)

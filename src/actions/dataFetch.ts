@@ -1,8 +1,7 @@
 'use server'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from '../utils/authoptions'
 import z from 'zod'
 import { revalidatePath } from 'next/cache'
+import { auth } from '@/auth'
 
 interface Summary {
   completed: number
@@ -28,7 +27,7 @@ interface SummaryResponse {
 }
 
 export async function getWeekGoals() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   if (!session) throw new Error()
   //   console.log("session: ")
   //   console.log(session)
@@ -41,7 +40,7 @@ export async function getWeekGoals() {
 }
 
 export async function getMonthGoals() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   if (!session) throw new Error()
   //   console.log("session: ")
   //   console.log(session)
@@ -55,7 +54,7 @@ export async function getMonthGoals() {
 
 type cateoryIdType = { categoryId: string }
 export async function createCategory(formData: FormData) {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   if (!session) throw new Error()
 
   const schema = z.object({
@@ -93,7 +92,7 @@ type cateoryListType = {
   }[]
 }
 export async function getCategories() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   if (!session) throw new Error()
   //   console.log("session: ")
   //   console.log(session)
