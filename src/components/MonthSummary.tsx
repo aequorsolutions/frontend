@@ -40,7 +40,7 @@ export function MonthSummary({ summary, categories }: MonthSummaryResponse) {
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-3">
               <InOrbitIcon />
-              <span className="text-lg font-semibold capitalize">{month}</span>
+              <span className="text-md font-semibold capitalize">{month}</span>
             </div>
             <Button className="hover:bg-violet-500" size="sm">
               <ChevronDownIcon

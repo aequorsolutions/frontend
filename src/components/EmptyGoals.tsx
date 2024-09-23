@@ -17,14 +17,13 @@ export function EmptyGoals() {
       />
 
       <p className="text-zinc-300 leading-relaxed max-w-80 text-center">
-        Você ainda não cadastrou nenhuma meta, que tal cadastrar uma agora
-        mesmo?
+        Você ainda não criou nenhuma meta, que tal criou uma agora mesmo?
       </p>
 
       <DialogTrigger asChild>
         <Button>
           <Plus className="size-4" />
-          Cadastrar meta
+          Criar meta
         </Button>
       </DialogTrigger>
     </main>

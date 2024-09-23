@@ -45,7 +45,7 @@ export function WeeklySummary({ summary, categories }: WeeklySummaryProps) {
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-3 w-full">
               <InOrbitIcon />
-              <span className="text-md font-semibold">
+              <span className="text-sm md:text-md font-semibold">
                 {fromDate} - {toDate}
               </span>
             </div>
