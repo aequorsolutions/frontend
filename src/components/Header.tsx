@@ -8,7 +8,7 @@ export async function Header() {
   if (!session) return null
 
   return (
-    <div className="flex mx-auto justify-between items-center py-4 w-full max-w-screen-lg">
+    <div className="flex mx-auto justify-between items-center py-4 w-full max-w-screen-lg px-4">
       {!session?.user?.image ? (
         <User />
       ) : (

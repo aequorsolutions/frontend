@@ -6,7 +6,7 @@ export default ({
   value,
 }: { children: ReactNode; value: string }) => (
   <ToggleGroup.Root
-    className="inline-flex bg-zinc-500 rounded shadow-[0_2px_10px] shadow-blackA4 space-x-px"
+    className="inline-flex bg-zinc-500 rounded shadow-[0_2px_10px] space-x-px"
     type="single"
     defaultValue="center"
     aria-label="Text alignment"

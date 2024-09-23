@@ -94,7 +94,7 @@ export function CreateGoal({
 
   return (
     <DialogContent>
-      <div className="flex flex-col gap-6 h-full">
+      <div className="flex flex-col gap-6 h-full overflow-auto">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <DialogTitle>Cadastrar meta</DialogTitle>
@@ -225,7 +225,7 @@ export function CreateGoal({
             </div>
           </div>
 
-          <div className="flex items-center gap-3 mt-auto">
+          <div className="flex items-center gap-3 py-4 mt-auto">
             <DialogClose asChild>
               <Button variant="secondary" className="flex-1">
                 Fechar

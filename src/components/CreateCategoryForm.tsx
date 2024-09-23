@@ -54,9 +54,9 @@ export function CreateCategoryForm() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button type="button">
+        <Button type="button" size="sm">
           <Plus className="size-4" />
-          Criar Categoria
+          <span className="hidden md:flex">Criar</span> Categoria
         </Button>
       </DialogTrigger>
       <DialogContent>

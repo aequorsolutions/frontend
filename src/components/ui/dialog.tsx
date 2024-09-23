@@ -33,7 +33,7 @@ export function DialogContent(props: DialogPrimitive.DialogContentProps) {
 
       <DialogPrimitive.DialogContent
         {...props}
-        className="fixed z-50 right-0 top-0 bottom-0 w-[400px] h-screen border-l border-zinc-900 bg-zinc-950 p-8"
+        className="fixed z-50 right-0 top-0 bottom-0 w-full md:w-[400px] h-full md:h-screen border-l border-zinc-900 bg-zinc-950 px-4 md:px-8 py-8"
       />
     </DialogPortal>
   )

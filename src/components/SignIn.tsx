@@ -11,11 +11,12 @@ import { InOrbitIcon } from './in-orbit-icon'
 const SignIn = () => {
   return (
     <div className="h-screen flex-1 flex flex-col md:flex-row items-center justify-center mx-auto w-full">
-      <div className="flex-1 flex flex-col py-4 gap-8 justify-center items-center h-screen">
+      <div className="flex-1 flex flex-col py-4 gap-8 justify-center items-center h-auto md:h-screen">
         <Image src={logo} alt="in.orbit" />
 
         <Image
           src={rocketLaunchIllustration}
+          className="h-44 w-44 md:h-auto md:w-auto"
           alt="Ilustração de uma mulher controlando um lançamento de um foguete através de um controle remoto"
         />
 
@@ -23,7 +24,7 @@ const SignIn = () => {
           Crie metas e acompanhe seu progresso ao longo do tempo
         </p>
       </div>
-      <div className="flex flex-col items-center justify-center gap-2 bg-violet-500/80 h-[50vh] md:h-screen w-full md:w-2/5">
+      <div className="flex flex-col items-center justify-center gap-2 bg-violet-500/80 h-[60vh] md:h-screen w-full md:w-2/5">
         <div className="flex flex-col p-6">
           <Button
             variant="login"

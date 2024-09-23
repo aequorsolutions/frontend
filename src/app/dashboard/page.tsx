@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { CreateCategoryForm } from '@/components/CreateCategoryForm'
 import { InOrbitIcon } from '@/components/in-orbit-icon'
+import { Separator } from '@/components/ui/separator'
 
 export default function Home() {
   const session = useSession()
@@ -42,7 +43,7 @@ export default function Home() {
   }
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <div className="flex flex-col h-screen justify-start max-w-screen-lg mx-auto px-4">
+      <div className="flex flex-col h-full md:h-screen justify-start max-w-screen-lg mx-auto px-4">
         <div className="flex justify-between gap-4">
           <div className="flex-1">Resumo de Metas</div>
 
@@ -50,18 +51,19 @@ export default function Home() {
           <DialogTrigger asChild>
             <Button size="sm">
               <Plus className="size-4" />
-              Cadastrar meta
+              <span className="hidden md:flex">Criar</span> Meta
             </Button>
           </DialogTrigger>
         </div>
 
         {weekData?.data.summary.total > 0 ||
         monthData?.data.summary.total > 0 ? (
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col md:flex-row ">
             <WeeklySummary
               summary={weekData?.data.summary}
               categories={categoriesData.data}
             />
+            <Separator />
             <MonthSummary
               summary={monthData?.data.summary}
               categories={categoriesData.data}
