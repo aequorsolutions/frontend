@@ -5,7 +5,10 @@ import { Progress, ProgressIndicator } from './ui/progress-bar'
 import { Separator } from './ui/separator'
 import dayjs from 'dayjs'
 import ptBR from 'dayjs/locale/pt-br'
-import type { MonthSummaryResponse } from '@/actions/dataFetch'
+import {
+  deleteGoalCompletion,
+  type MonthSummaryResponse,
+} from '@/actions/dataFetch'
 import { PendingMonthGoals } from './PendingMonthGoals'
 import { useState } from 'react'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
@@ -15,16 +18,33 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@radix-ui/react-accordion'
+import { toast } from 'sonner'
+import { useQueryClient } from '@tanstack/react-query'
 
 dayjs.locale(ptBR)
 
 export function MonthSummary({ summary, categories }: MonthSummaryResponse) {
   const month = dayjs().startOf('month').format('MMMM')
   const [value, setValue] = useState('all')
+  const queryClient = useQueryClient()
 
   const completedPercentage =
     Math.round((summary.completed * 100) / summary.total) | 0
 
+  async function handleUnDoGoalCompletion(goalCompletionId: string) {
+    try {
+      const { data } = await deleteGoalCompletion({ goalCompletionId })
+      console.log(data)
+      toast.success('Registro deletado com sucesso!')
+
+      queryClient.invalidateQueries({ queryKey: ['pending-goals-month'] })
+      queryClient.invalidateQueries({ queryKey: ['summary-week'] })
+      queryClient.invalidateQueries({ queryKey: ['pending-goals'] })
+      queryClient.invalidateQueries({ queryKey: ['summary-month'] })
+    } catch (error) {
+      toast.error('Erro ao deletar registro')
+    }
+  }
   return (
     <Accordion.Root
       className="max-w-[540px] w-full py-10 md:px-5 mx-auto flex flex-col gap-6"
@@ -152,6 +172,15 @@ export function MonthSummary({ summary, categories }: MonthSummaryResponse) {
                                   {' '}
                                   ({goal.category})
                                 </span>
+                                <button
+                                  type="button"
+                                  className="text-sm text-zinc-400 hover:text-zinc-300 cursor-pointer"
+                                  onClick={() =>
+                                    handleUnDoGoalCompletion(goal.id)
+                                  }
+                                >
+                                  ({'desfazer'})
+                                </button>
                               </span>
                             </li>
                           )
@@ -174,8 +203,17 @@ export function MonthSummary({ summary, categories }: MonthSummaryResponse) {
                                 </span>
                                 <span className="text-sm text-zinc-400">
                                   {' '}
-                                  ({goal.category})
+                                  ({goal.category}){' '}
                                 </span>
+                                <button
+                                  type="button"
+                                  className="text-sm text-zinc-400 hover:text-zinc-300 cursor-pointer"
+                                  onClick={() =>
+                                    handleUnDoGoalCompletion(goal.id)
+                                  }
+                                >
+                                  ({'desfazer'})
+                                </button>
                               </span>
                             </li>
                           )

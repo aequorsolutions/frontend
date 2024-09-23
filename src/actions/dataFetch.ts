@@ -169,3 +169,20 @@ export async function createGoalCompletion({ goalId }: { goalId: string }) {
   const data: cateoryListType = await response.json()
   return { data }
 }
+
+export async function deleteGoalCompletion({
+  goalCompletionId,
+}: { goalCompletionId: string }) {
+  const session = await auth()
+  if (!session) throw new Error()
+  const response = await fetch(`${process.env.NEXT_BACKEND_URL}/completions`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.accessToken}`,
+    },
+    body: JSON.stringify({ completionId: goalCompletionId }),
+  })
+  const data: { message: string } = await response.json()
+  return { data }
+}
