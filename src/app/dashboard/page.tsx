@@ -12,14 +12,12 @@ import { Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { CreateCategoryForm } from '@/components/CreateCategoryForm'
+import { InOrbitIcon } from '@/components/in-orbit-icon'
 
 export default function Home() {
-  // const session = await auth()
   const session = useSession()
   const route = useRouter()
-  // console.log(session)
   if (session.status === 'unauthenticated') route.push('/')
-  // const queryClient = useQueryClient()
 
   const { data: weekData, isLoading: load1 } = useQuery({
     queryKey: ['summary-week'],
@@ -36,16 +34,15 @@ export default function Home() {
 
   const [isOpen, setIsOpen] = useState(false)
   if (load1 || !weekData || load2 || !monthData || load3 || !categoriesData) {
-    return null
+    return (
+      <div className="h-[80vh] flex items-center justify-center">
+        <InOrbitIcon className="  animate-spin size-10" />
+      </div>
+    )
   }
-  //   console.log("session: ")
-  // console.log(session)
-  // const { data: weekData } = await getWeekGoals()
-  // const { data: monthData } = await getMonthGoals()
-  // console.log(monthData)
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <div className="flex flex-col h-screen justify-start max-w-screen-lg mx-auto">
+      <div className="flex flex-col h-screen justify-start max-w-screen-lg mx-auto px-4">
         <div className="flex justify-between gap-4">
           <div className="flex-1">Resumo de Metas</div>
 
@@ -70,14 +67,9 @@ export default function Home() {
               categories={categoriesData.data}
             />
           </div>
-
-          // <EmptyGoals />
         ) : (
           <EmptyGoals />
         )}
-        {/* <DialogContent>
-        <h1>Eita!</h1>
-      </DialogContent> */}
         <CreateGoal categories={categoriesData.data} setIsOpen={setIsOpen} />
       </div>
     </Dialog>

@@ -1,15 +1,12 @@
-import { CheckCircle2, Plus } from 'lucide-react'
+import { CheckCircle2 } from 'lucide-react'
 import { InOrbitIcon } from './in-orbit-icon'
-import { DialogTrigger } from '@radix-ui/react-dialog'
 import { Button } from './ui/button'
 import { Progress, ProgressIndicator } from './ui/progress-bar'
 import { Separator } from './ui/separator'
 import dayjs from 'dayjs'
 import ptBR from 'dayjs/locale/pt-br'
-// import { PendingGoals } from './pending-goals'
 import type { cateoryListType, SummaryResponse } from '@/actions/dataFetch'
 import { PendingWeekGoals } from './PendingWeekGoals'
-import { OutlineButton } from './ui/outline-button'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { useState } from 'react'
 
@@ -78,13 +75,6 @@ export function WeeklySummary({ summary, categories }: WeeklySummaryProps) {
               >
                 {item.name}
               </ToggleGroup.Item>
-              // <OutlineButton
-              //   key={item.id}
-              //   // onClick={() => handleCreateGoalCompletion(goal.id)}
-              //   // disabled={goal.completionCount >= goal.desiredFrequency}
-              // >
-              //   {item.name}
-              // </OutlineButton>
             )
           })}
           <ToggleGroup.Item

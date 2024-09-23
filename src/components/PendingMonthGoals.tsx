@@ -3,10 +3,7 @@ import { CheckCheckIcon, Plus } from 'lucide-react'
 import { OutlineButton } from './ui/outline-button'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createGoalCompletion } from '@/actions/dataFetch'
-import { useSession } from 'next-auth/react'
 import { getPendingMonthGoals } from '@/http/getPendingMonthGoals'
-// import { getPendingWeekGoals } from '../http/get-pending-goals'
-// import { createGoalCompletion } from '../http/create-goal-completion'
 
 export function PendingMonthGoals({ category }: { category: string }) {
   // const { data: session } = useSession()

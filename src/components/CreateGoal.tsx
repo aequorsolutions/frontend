@@ -1,5 +1,15 @@
 'use client'
+import { useState } from 'react'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Controller, useForm } from 'react-hook-form'
+import { useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { X } from 'lucide-react'
+import * as ToggleGroup from '@radix-ui/react-toggle-group'
+
+import type { Dispatch, SetStateAction } from 'react'
+
 import { Button } from './ui/button'
 import {
   RadioGroup,
@@ -7,28 +17,16 @@ import {
   RadioGroupItem,
 } from './ui/radio-group'
 import {
-  Dialog,
   DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
-  DialogTrigger,
 } from './ui/dialog'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
-import { z } from 'zod'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-// import { createGoal } from '../http/create-goal'
-import { toast } from 'sonner'
+
 import { createGoal } from '@/actions/dataFetch'
 import type { cateoryListType } from '@/actions/dataFetch'
-import { useQueryClient } from '@tanstack/react-query'
-import * as ToggleGroup from '@radix-ui/react-toggle-group'
-import { useState } from 'react'
-import type { Dispatch, SetStateAction } from 'react'
-
-import { CreateCategoryForm } from './CreateCategoryForm'
 
 const createGoalSchema = z.object({
   title: z.string().min(1, 'Informe a atividade que deseja praticar'),

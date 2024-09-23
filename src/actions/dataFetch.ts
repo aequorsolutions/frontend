@@ -1,5 +1,5 @@
 'use server'
-import z, { string } from 'zod'
+import z from 'zod'
 import { revalidatePath } from 'next/cache'
 import { auth } from '@/auth'
 
@@ -52,10 +52,7 @@ export interface MonthSummaryResponse {
 export async function getWeekGoals() {
   const session = await auth()
   if (!session) throw new Error()
-  //   console.log("session: ")
-  //   console.log(session)
-  //   console.log({ Authorization: `Bearer ${session?.accessToken}` })
-  const response = await fetch('http://localhost:3333/summary', {
+  const response = await fetch(`${process.env.NEXT_BACKEND_URL}/summary`, {
     headers: { Authorization: `Bearer ${session?.accessToken}` },
   })
   const data: SummaryResponse = await response.json()
@@ -65,12 +62,12 @@ export async function getWeekGoals() {
 export async function getMonthGoals() {
   const session = await auth()
   if (!session) throw new Error()
-  //   console.log("session: ")
-  //   console.log(session)
-  //   console.log({ Authorization: `Bearer ${session?.accessToken}` })
-  const response = await fetch('http://localhost:3333/summary/month', {
-    headers: { Authorization: `Bearer ${session?.accessToken}` },
-  })
+  const response = await fetch(
+    `${process.env.NEXT_BACKEND_URL}/summary/month`,
+    {
+      headers: { Authorization: `Bearer ${session?.accessToken}` },
+    }
+  )
   const data: MonthSummaryResponse = await response.json()
   return { data }
 }
@@ -94,7 +91,7 @@ export async function createCategory({ nameInput }: { nameInput: string }) {
 
   const name = parse.data
   console.log(JSON.stringify({ name: name.name }))
-  const response = await fetch('http://localhost:3333/categories', {
+  const response = await fetch(`${process.env.NEXT_BACKEND_URL}/categories`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${session?.accessToken}`,
@@ -117,10 +114,7 @@ export type cateoryListType = {
 export async function getCategories() {
   const session = await auth()
   if (!session) throw new Error()
-  //   console.log("session: ")
-  //   console.log(session)
-  //   console.log({ Authorization: `Bearer ${session?.accessToken}` })
-  const response = await fetch('http://localhost:3333/categories', {
+  const response = await fetch(`${process.env.NEXT_BACKEND_URL}/categories`, {
     headers: { Authorization: `Bearer ${session?.accessToken}` },
   })
   const data: cateoryListType = await response.json()
@@ -144,10 +138,7 @@ export async function createGoal({
 }: CreateGoalProps) {
   const session = await auth()
   if (!session) throw new Error()
-  //   console.log("session: ")
-  console.log(category)
-  //   console.log({ Authorization: `Bearer ${session?.accessToken}` })
-  const response = await fetch('http://localhost:3333/goals', {
+  const response = await fetch(`${process.env.NEXT_BACKEND_URL}/goals`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${session?.accessToken}`,
@@ -167,10 +158,7 @@ export async function createGoal({
 export async function createGoalCompletion({ goalId }: { goalId: string }) {
   const session = await auth()
   if (!session) throw new Error()
-  //   console.log("session: ")
-  //   console.log(session)
-  //   console.log({ Authorization: `Bearer ${session?.accessToken}` })
-  const response = await fetch('http://localhost:3333/completions', {
+  const response = await fetch(`${process.env.NEXT_BACKEND_URL}/completions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

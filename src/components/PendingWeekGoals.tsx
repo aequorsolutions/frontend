@@ -4,13 +4,8 @@ import { OutlineButton } from './ui/outline-button'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createGoalCompletion } from '@/actions/dataFetch'
 import { getPendingWeekGoals } from '@/http/getPendingGoals'
-// import { useSession } from 'next-auth/react'
-// import { getPendingWeekGoals } from '../http/get-pending-goals'
-// import { createGoalCompletion } from '../http/create-goal-completion'
 
 export function PendingWeekGoals({ category }: { category: string }) {
-  // const { data: session } = useSession()
-  // console.log(session)
   const queryClient = useQueryClient()
 
   const { data, isLoading } = useQuery({
