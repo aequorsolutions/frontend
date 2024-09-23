@@ -27,7 +27,7 @@ export default {
       //@ts-ignore
       if (Date.now() < token.expires_at * 1000) {
         // Subsequent logins, but the `access_token` is still valid
-        console.warn('Token atual válido')
+        // console.warn('Token atual válido')
         return token
       }
 
@@ -74,12 +74,12 @@ export default {
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
-      console.log(token)
-      console.warn('tokenEnds Agin')
+      // console.log(token)
+      // console.warn('tokenEnds Agin')
       session.accessToken = token.access_token as string
-      console.log('session')
-      console.log(session)
-      console.log('sessionEnds')
+      // console.log('session')
+      // console.log(session)
+      // console.log('sessionEnds')
       const res = await fetch('http://localhost:3333/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

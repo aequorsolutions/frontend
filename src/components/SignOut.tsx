@@ -6,7 +6,11 @@ export default function SignOut() {
     signOut({ redirectTo: '/', redirect: true })
   }
   return (
-    <button type="button" onClick={() => handleClick()}>
+    <button
+      type="button"
+      className="hover:text-red-400 transition-colors"
+      onClick={() => handleClick()}
+    >
       Logout
     </button>
   )

@@ -1,5 +1,5 @@
 'use server'
-import z from 'zod'
+import z, { string } from 'zod'
 import { revalidatePath } from 'next/cache'
 import { auth } from '@/auth'
 
@@ -22,10 +22,33 @@ interface Completion {
   completedAt: string // Data e hora da conclusão da meta
 }
 
-interface SummaryResponse {
+export interface SummaryResponse {
   summary: Summary
 }
 
+interface GoalCompletion {
+  id: string
+  title: string
+  type: string
+  category: string
+  completedAt: string
+}
+
+interface GoalsPerWeek {
+  weekOfMonth: number
+  completions: GoalCompletion[]
+}
+
+interface MonthSummary {
+  completed: number
+  total: number
+  goalsPerWeek: GoalsPerWeek[]
+}
+
+export interface MonthSummaryResponse {
+  summary: MonthSummary
+  categories: cateoryListType
+}
 export async function getWeekGoals() {
   const session = await auth()
   if (!session) throw new Error()
@@ -48,12 +71,12 @@ export async function getMonthGoals() {
   const response = await fetch('http://localhost:3333/summary/month', {
     headers: { Authorization: `Bearer ${session?.accessToken}` },
   })
-  const data: SummaryResponse = await response.json()
+  const data: MonthSummaryResponse = await response.json()
   return { data }
 }
 
 type cateoryIdType = { categoryId: string }
-export async function createCategory(formData: FormData) {
+export async function createCategory({ nameInput }: { nameInput: string }) {
   const session = await auth()
   if (!session) throw new Error()
 
@@ -61,7 +84,7 @@ export async function createCategory(formData: FormData) {
     name: z.string().min(1),
   })
   const parse = schema.safeParse({
-    name: formData.get('name'),
+    name: nameInput,
   })
 
   if (!parse.success) {
@@ -84,7 +107,7 @@ export async function createCategory(formData: FormData) {
   return { data, error: { message: '' } }
 }
 
-type cateoryListType = {
+export type cateoryListType = {
   userCategories: {
     id: string
     name: string
@@ -99,6 +122,61 @@ export async function getCategories() {
   //   console.log({ Authorization: `Bearer ${session?.accessToken}` })
   const response = await fetch('http://localhost:3333/categories', {
     headers: { Authorization: `Bearer ${session?.accessToken}` },
+  })
+  const data: cateoryListType = await response.json()
+  return { data }
+}
+
+interface CreateGoalProps {
+  title: string
+  category: string
+  type: string
+  desiredWeeklyFrequency: number
+}
+type CreatGoalRes = {
+  goalId: string
+}
+export async function createGoal({
+  title,
+  category,
+  type,
+  desiredWeeklyFrequency,
+}: CreateGoalProps) {
+  const session = await auth()
+  if (!session) throw new Error()
+  //   console.log("session: ")
+  console.log(category)
+  //   console.log({ Authorization: `Bearer ${session?.accessToken}` })
+  const response = await fetch('http://localhost:3333/goals', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${session?.accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: title,
+      categoryId: category,
+      type: type,
+      desiredWeeklyFrequency: desiredWeeklyFrequency,
+    }),
+  })
+  const data: CreatGoalRes = await response.json()
+  return { data }
+}
+
+export async function createGoalCompletion({ goalId }: { goalId: string }) {
+  const session = await auth()
+  if (!session) throw new Error()
+  //   console.log("session: ")
+  //   console.log(session)
+  //   console.log({ Authorization: `Bearer ${session?.accessToken}` })
+  const response = await fetch('http://localhost:3333/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.accessToken}`,
+    },
+    body: JSON.stringify({ goalId: goalId }),
   })
   const data: cateoryListType = await response.json()
   return { data }
